@@ -48,4 +48,12 @@ internal class UsersRepository : IUsersRepository
         //    Gender = GenderOptions.Female.ToString(),
         //};
     }
+
+    public async Task<ApplicationUser?> GetUserByUserId(Guid? userId)
+    {
+        string query = "SELECT * FROM public.\"Users\" WHERE \"UserId\"=@UserId";
+        var parametersObj = new { UserId=userId };
+        var result = await _dbContext.DbConnection.QueryFirstOrDefaultAsync<ApplicationUser>(query,parametersObj);
+        return result;
+    }
 }

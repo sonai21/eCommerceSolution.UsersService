@@ -14,7 +14,7 @@ public class DapperDbContext
     public DapperDbContext(IConfiguration configuration)
     {
         _configuration = configuration;
-        string? connectionString = _configuration.GetConnectionString("PostgresConnection");
+        string? connectionString = _configuration.GetConnectionString("DockerDatabaseConnection");
 
         //create a new npgsql connection
         _dbConnection =  new NpgsqlConnection(connectionString);

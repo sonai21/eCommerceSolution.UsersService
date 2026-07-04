@@ -14,10 +14,32 @@ builder.Services.AddControllers().AddJsonOptions(options =>
 
 builder.Services.AddFluentValidationAutoValidation();
 
+
+//add api explorer services
+builder.Services.AddEndpointsApiExplorer();
+
+//add swagger generation services to create swagger specifiacation
+builder.Services.AddSwaggerGen();
+
+//add cors related services
+builder.Services.AddCors(
+    options =>
+    {
+        options.AddDefaultPolicy(builder =>
+        {
+            builder.WithOrigins("").AllowAnyMethod().AllowAnyHeader();
+        });
+    });
+
 var app = builder.Build();
 
 app.UseExceptionHandlingMiddleware();
 app.UseRouting();
+app.UseSwagger();
+app.UseSwaggerUI();
+app.UseCors();
+
+//auth
 app.UseAuthentication();
 app.UseAuthorization();
 app.MapControllers();
